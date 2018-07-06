@@ -7,8 +7,11 @@
   <property name="output.dir" location="out/production/${project.name}" />
   <property name="source.dir" location="src" />
   <property name="jar.dir" location="out/artifacts/${project.jar.name}"/>
-  <property name="jar.file" value="${project.name}.jar"/>
+  <property name="javadoc.dir" location="docs/api" />
+
+  <property name="classes.jar.file" value="${project.name}.jar"/>
   <property name="docs.jar.file" value="${project.name}-javadoc.jar"/>
+  <property name="sources.jar.file" value="${project.name}-sources.jar"/>
 
   <fileset id="source.files" dir="${source.dir}">
     <include name="**/*.java"/>
@@ -20,22 +23,24 @@
   </target>
 
   <target name="javadoc" description="Generate Javadoc HTML">
-   <javadoc destdir="docs/api"> <!-- TODO Replace with property reference. -->
+   <javadoc destdir="${javadoc.dir}"> <!-- TODO Replace with property reference. -->
      <fileset refid="source.files" />
      <link href="https://docs.oracle.com/javase/8/docs/api/" />
      <doctitle>Passphrase Generator</doctitle>
    </javadoc>
   </target>
 
-  <target name="jar" depends="compile" description="Assemble JAR file with classes">
-    <jar basedir="${output.dir}" destfile="${jar.dir}/${jar.file}" />
+  <target name="jar" depends="compile, javadoc" description="Assemble JAR files">
+    <jar basedir="${output.dir}" destfile="${jar.dir}/${classes.jar.file}" />
+    <jar basedir="${source.dir}" destfile="${jar.dir}/${sources.jar.file}" />
+    <jar basedir="${javadoc.dir}" destfile="${jar.dir}/${docs.jar.file}" />
   </target>
 
   <target name="clean" description="cleanup module">
     <delete dir="${output.dir}"/>
   </target>
 
-  <target name="build" depends="compile" description="build all"/>
+  <target name="build" depends="jar" description="build all"/>
   <target name="rebuild" depends="clean, build" description="rebuild all"/>
 
 
