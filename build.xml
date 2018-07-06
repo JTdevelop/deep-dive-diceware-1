@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="deep-dive-diceware-1" default="build">
+
+  <property name="project.name" value="deep-dive-diceware-1" />
+  <property name="project.jar.name" value="deep-dive-diceware-1_jar" />
+
+  <property name="output.dir" location="out/production/${project.name}" />
+  <property name="source.dir" location="src" />
+  <property name="jar.dir" location="out/artifacts/${project.jar.name}"/>
+  <property name="jar.file" value="${project.name}.jar"/>
+  <property name="docs.jar.file" value="${project.name}-javadoc.jar"/>
+
+  <fileset id="source.files" dir="${source.dir}">
+    <include name="**/*.java"/>
+  </fileset>
+
+  <target name="compile" description="Compile Java sources">
+    <mkdir dir="${output.dir}"/>
+    <javac destdir="${output.dir}" srcdir="${source.dir}" />
+  </target>
+
+  <target name="javadoc" description="Generate Javadoc HTML">
+   <javadoc destdir="docs/api"> <!-- TODO Replace with property reference. -->
+     <fileset refid="source.files" />
+     <link href="https://docs.oracle.com/javase/8/docs/api/" />
+     <doctitle>Passphrase Generator</doctitle>
+   </javadoc>
+  </target>
+
+  <target name="jar" depends="compile" description="Assemble JAR file with classes">
+    <jar basedir="${output.dir}" destfile="${jar.dir}/${jar.file}" />
+  </target>
+
+  <target name="clean" description="cleanup module">
+    <delete dir="${output.dir}"/>
+  </target>
+
+  <target name="build" depends="compile" description="build all"/>
+  <target name="rebuild" depends="clean, build" description="rebuild all"/>
+
+
+</project>
