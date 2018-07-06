@@ -3,12 +3,10 @@
 
   <property name="project.name" value="deep-dive-diceware-1" />
   <property name="project.jar.name" value="deep-dive-diceware-1_jar" />
-
   <property name="output.dir" location="out/production/${project.name}" />
   <property name="source.dir" location="src" />
   <property name="jar.dir" location="out/artifacts/${project.jar.name}"/>
   <property name="javadoc.dir" location="docs/api" />
-
   <property name="classes.jar.file" value="${project.name}.jar"/>
   <property name="docs.jar.file" value="${project.name}-javadoc.jar"/>
   <property name="sources.jar.file" value="${project.name}-sources.jar"/>
